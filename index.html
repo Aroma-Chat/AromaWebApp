@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaChat Web</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="Aromalib/js/vanilla/client/aromalib.js"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+    <div id="loginform">
+        <h1 id="aroma">Aroma Chat</h1>
+
+        Server address
+        <input type="text" id="host" class="loginfield">
+        Username
+        <input type="text" id="name" class="loginfield">
+        <input type="button" value="Connect" id="connect" onclick="connectToServer()">
+    </div>
+
+    <div id="messageboard" class="maxsize">
+        <div id="server">
+            <h1 id="servername">Server name</h1>
+        </div>
+
+        <div id="messagearea" class="maxsize">
+            <div id="messages" class="maxsize"><div id="dummydiv"></div></div>
+            <div class="horizontal maxsize" id="messageinput">
+                <textarea id="newmessage" rows="1"></textarea>
+                <input type="button" value="Send" id="send" onclick="sendMessage()">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
