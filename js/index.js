@@ -6,7 +6,9 @@ let client;
 // The original content of the 'messages' div
 let MSG_HTML;
 
-// Connect to the server
+/**
+ * Connect to the server
+ */
 const connectToServer = () => {
     // Read host address and username from input areas
     const address = $('host').value;
@@ -106,6 +108,9 @@ const connectToServer = () => {
     client.connect();
 }
 
+/**
+ * Send a message
+ */
 const sendMessage = () => {
     const message = $('newmessage').value;
     if (message == '') return;
@@ -114,7 +119,9 @@ const sendMessage = () => {
     $('newmessage').value = '';
 }
 
-// Show the messageboard
+/**
+ * Show the message board
+ */
 const showMessageboard = () => {
     const form = $('loginform');
     const msgb = $('messageboard');
@@ -122,6 +129,9 @@ const showMessageboard = () => {
     msgb.style.display = 'flex';
 }
 
+/**
+ * @param {str} channel the channel to join
+ */
 const joinTextChannel = (channel) => {
     if (client.textChannel != null) {
         $(`${client.textChannel}-button`).style = '';
