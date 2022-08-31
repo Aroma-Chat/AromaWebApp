@@ -1,72 +1,13 @@
 /* WARNING: This is all temporary code. Code quality was not considered */
 
-class Message {
-    constructor(sender, content) {
-        this.sender = sender;
-        this.content = content;
-    }
-    
-    toHTML() {
-        return `<h3 style="color: cornflowerblue;">${this.sender}</h3>${this.content.replace('\n', '<br>')}<br>`;
-    }
-}
-
-class LoginMessage {
-    constructor(name) {
-        this.name = name;
-    }
-
-    toHTML() {
-        return `<h4 class="login-message">${this.name} logged in</h2>`
-    }
-}
-
-class LogoutMessage {
-    constructor(name) {
-        this.name = name;
-    }
-
-    toHTML() {
-        return `<h4 class="logout-message">${this.name} logged out</h2>`
-    }
-}
-
-class ChannelJoinMessage {
-    constructor(name) {
-        this.name = name;
-    }
-
-    toHTML() {
-        return `<h4 class="join-message">${this.name} joined ${client.textChannel}</h2>`
-    }
-}
-
-class ChannelLeaveMessage {
-    constructor(name) {
-        this.name = name;
-    }
-
-    toHTML() {
-        return `<h4 class="leave-message">${this.name} left ${client.textChannel}</h2>`
-    }
-}
-
-class ChannelButton {
-    constructor(channelName) {
-        this.channelName = channelName;
-    }
-
-    toHTML() {
-        return `<input type="button" value="${this.channelName}" class="channel-button" id="${this.channelName}-button" onclick="joinTextChannel('${this.channelName}')">`;
-    }
-}
-
 // The client that handles the connection
 let client;
+
+// The original content of the 'messages' div
 let MSG_HTML;
 
 // Connect to the server
-function connectToServer() {
+const connectToServer = () => {
     // Read host address and username from input areas
     const address = $('host').value;
     const name = $('name').value;
@@ -165,7 +106,7 @@ function connectToServer() {
     client.connect();
 }
 
-function sendMessage() {
+const sendMessage = () => {
     const message = $('newmessage').value;
     if (message == '') return;
     
@@ -174,14 +115,14 @@ function sendMessage() {
 }
 
 // Show the messageboard
-function showMessageboard() {
+const showMessageboard = () => {
     const form = $('loginform');
     const msgb = $('messageboard');
     form.style.display = 'none';
     msgb.style.display = 'flex';
 }
 
-function joinTextChannel(channel) {
+const joinTextChannel = (channel) => {
     if (client.textChannel != null) {
         $(`${client.textChannel}-button`).style = '';
     }
