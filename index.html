@@ -4,14 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
+    <title>Aroma Chat</title>
 
     <!-- Style sheets -->
-    <link rel="stylesheet" href="css/tags.css">
-    <link rel="stylesheet" href="css/classes.css">
-    <link rel="stylesheet" href="css/ids.css">
-    <link rel="stylesheet" href="css/mixed.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="style/css/main.css">
     
     <!-- External Libraries -->
     <script src="https://aroma-chat.github.io/Aromalib/js/vanilla/client/aromalib.js"></script>
@@ -23,16 +19,37 @@
     <!-- Scripts -->
     <script src="js/index.js"></script>
 </head>
-<body>
-    <div id="loginform">
-        <h1 id="aroma">Aroma Chat</h1>
 
-        Server address
-        <input type="text" id="host" class="loginfield">
-        Username
-        <input type="text" id="name" class="loginfield">
-        <input type="button" value="Connect" id="connect" onclick="connectToServer()">
-    </div>
+<body>
+    <section class="login_page">
+        <div class="left_half">
+            <h1 id="aroma">Aroma chat left</h1>
+        </div>
+
+        <div class="right_half">
+            <h1>Login Account</h1>
+            <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem voluptatum, magni, cumque alias amet quia accusamus nemo perferendis ea ipsa provident. Consequuntur delectus dolorem quae optio, sit harum animi est.
+            </p>
+
+            <div class="personal_data">
+                <label for="host">Enter your host name</label>
+                <input type="text" id="host" placeholder="&nbsp;&nbsp;Host name">
+
+                <br/>
+                
+                <label for="name">Enter your name</label>
+                <input type="text" id="name" placeholder="&nbsp;&nbsp;Name">
+
+                <br/>
+
+                <input type="button" id="connect" value="CONNECT" onclick="connectToServer()">
+            </div>
+        </div>
+    </section>
+
+
+<!--
 
     <div id="messageboard" class="maxsize">
         <div id="server">
@@ -47,5 +64,7 @@
             </div>
         </div>
     </div>
+-->
+    
 </body>
 </html>
