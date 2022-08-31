@@ -27,14 +27,26 @@ html {
   /* Right half of the main block */
 }
 .login_page .left_half {
-  border: 1px solid red;
+  border: 1px solid black;
   display: inline-block;
   width: 49.5%;
   height: 100%;
   text-align: center;
 }
+.login_page .left_half h1 {
+  text-align: center;
+  font-size: 30px;
+  color: #4A6670;
+  padding: 2%;
+  margin-top: 5%;
+}
+.login_page .left_half p {
+  text-align: center;
+  color: #BCC1BA;
+  font-size: 12px;
+}
 .login_page .right_half {
-  border: 1px solid blue;
+  border: 1px solid black;
   float: right;
   width: 49.5%;
   height: 100%;
@@ -42,13 +54,13 @@ html {
 .login_page .right_half h1 {
   text-align: center;
   font-size: 30px;
-  color: blue;
+  color: #4A6670;
   padding: 2%;
   margin-top: 15%;
 }
 .login_page .right_half p {
   text-align: center;
-  color: gray;
+  color: #BCC1BA;
   font-size: 12px;
 }
 .login_page .right_half .personal_data {
@@ -65,7 +77,7 @@ html {
   height: 35px;
   border: none;
   background-color: #E7E5DF;
-  border-left: 5px solid blue;
+  border-left: 5px solid #4A6670;
   margin: auto;
   width: 50%;
 }
@@ -77,4 +89,6 @@ html {
   font-size: 13px;
   margin: 0 auto;
   width: 35%;
+  background-color: #4A6670;
+  color: white;
 }
