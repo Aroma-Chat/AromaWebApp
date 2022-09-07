@@ -8,87 +8,139 @@
   font-family: "Roboto Condensed", sans-serif;
 }
 
+/* ALLINEAMENTO ORIZZONTALE */
+/* SEMPLICE BOTTONE */
+/* PADDING USATO NEI BOTTONI */
 html {
-  background-color: #EFEFEF;
+  scroll-behavior: smooth;
 }
 
-/* Page for the login */
-.login_page {
-  border: 1px solid black;
-  background-color: #F7F7F7;
-  display: inline-block;
-  width: 80%;
-  margin-left: 10%;
-  margin-top: 5%;
-  padding: 1%;
-  box-shadow: 10px 10px 70px gray;
-  border-radius: 10px;
-  /* Left half of the main block */
-  /* Right half of the main block */
+/* SEZIONE con il FORM per il LOGIN */
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
-.login_page .left_half {
+.container .login_page {
   border: 1px solid black;
-  display: inline-block;
+  background-color: var(--whiteColor);
+  width: 80%;
+  padding: 1%;
+  box-shadow: 10px 10px 70px var(--shadowColor);
+  border-radius: var(--radiusThree);
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 10%;
+  /* Parte sinistra della sezione login */
+  /* Parte destra della sezione login */
+}
+.container .login_page .left_half {
+  border: 1px solid black;
   width: 49.5%;
   height: 100%;
-  text-align: center;
 }
-.login_page .left_half h1 {
+.container .login_page .left_half h1 {
   text-align: center;
-  font-size: 30px;
-  color: #4A6670;
+  font-size: var(--titleSize);
+  color: var(--mainColor);
   padding: 2%;
   margin-top: 5%;
 }
-.login_page .left_half p {
+.container .login_page .left_half p {
   text-align: center;
-  color: #BCC1BA;
-  font-size: 12px;
+  color: var(--secondaryColor);
+  font-size: var(--paragraphSize);
 }
-.login_page .right_half {
-  border: 1px solid black;
-  float: right;
+.container .login_page .right_half {
   width: 49.5%;
   height: 100%;
+  margin-left: 5%;
 }
-.login_page .right_half h1 {
+.container .login_page .right_half h1 {
   text-align: center;
-  font-size: 30px;
-  color: #4A6670;
+  font-size: var(--titleSize);
+  color: var(--mainColor);
   padding: 2%;
   margin-top: 15%;
 }
-.login_page .right_half p {
+.container .login_page .right_half p {
   text-align: center;
-  color: #BCC1BA;
-  font-size: 12px;
+  color: var(--secondaryColor);
+  font-size: var(--paragraphSize);
 }
-.login_page .right_half .personal_data {
-  border: 1px solid black;
+.container .login_page .right_half .personal_data {
   padding-top: 10%;
   padding-bottom: 10%;
 }
-.login_page .right_half .personal_data label {
-  font-size: 17px;
+.container .login_page .right_half .personal_data label {
+  font-size: var(--labelSize);
   margin-left: 25%;
 }
-.login_page .right_half .personal_data #host, .login_page .right_half .personal_data #name {
+.container .login_page .right_half .personal_data #host,
+.container .login_page .right_half .personal_data #name {
   display: block;
   height: 35px;
   border: none;
-  background-color: #E7E5DF;
-  border-left: 5px solid #4A6670;
+  background-color: var(--secondaryColor);
+  border-left: 5px solid var(--mainColor);
   margin: auto;
   width: 50%;
 }
-.login_page .right_half .personal_data #connect {
+.container .login_page .right_half .personal_data #connect {
   display: block;
   border: none;
+  border-radius: var(--radiusTwo);
   padding: 12px 8px;
-  border-radius: 15px;
-  font-size: 13px;
+  font-size: var(--smallTextSize);
   margin: 0 auto;
   width: 35%;
-  background-color: #4A6670;
-  color: white;
+  background-color: var(--mainColor);
+  color: var(--secondaryColor);
+  transition: var(--transitionOne) linear;
+}
+.container .login_page .right_half .personal_data #connect:hover {
+  transform: scale(1.1);
+  transition: var(--transitionOne) linear;
+}
+
+:root {
+  --titleSize: 30px;
+  --labelSize: 17px;
+  --paragraphSize: 15px;
+  --smallTextSize: 13px;
+  --radiusOne: 20px;
+  --radiusTwo: 15px;
+  --radiusThree: 10px;
+  --radiusFour: 5px;
+  --mainColor-light: #4A6670;
+  --secondaryColor-light: #E7E5DF;
+  --blackColor-light: #000000;
+  --whiteColor-light: #FFFFFF;
+  --mainColor-dark: red;
+  --secondaryColor-dark: rgb(180, 180, 180)F;
+  --whiteColor-dark: rgb(155, 155, 155);
+  --shadowColor: gray;
+  --transitionOne: 0.5s;
+}
+
+/************************************************************************** 
+    STYLE PER LA DARK O LIGHT MODE IN BASE ALLE IMPOSTAZIONI DI SISTEMA 
+**************************************************************************/
+/* DARK MODE */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --mainColor: var(--mainColor-dark);
+    --secondaryColor: var(--secondaryColor-dark);
+    --whiteColor: var(--whiteColor-dark);
+  }
+}
+/* LIGHT */
+@media (prefers-color-scheme: light) {
+  :root {
+    --mainColor: var(--mainColor-light);
+    --secondaryColor: var(--secondaryColor-light);
+    --blackColor: var(--blackColor-light);
+    --whiteColor: var(--whiteColor-light);
+  }
 }

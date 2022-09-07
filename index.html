@@ -15,40 +15,46 @@
     <!-- Internal support code -->
     <script src="js/symbols.js"></script>
     <script src="js/classes.js"></script>
+    <script src="./js/cookies.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
     
     <!-- Scripts -->
     <script src="js/index.js"></script>
 </head>
 
-<body>
-    <section class="login_page">
-        <div class="left_half">
-            <h1 id="aroma">Welcome back to Aroma</h1>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor beatae minima quod ullam veniam illo placeat nihil fuga, magnam cum, eligendi labore deserunt adipisci voluptas aliquid repudiandae, similique nam perferendis.
-            </p>
-        </div>
+<body style="background-image: url(./content/bg_image.webp); background-size: cover;">
+    <section class="container" id="app">
+        <div class="login_page">
+            <div class="left_half">
+                <h1 id="aroma">{{ homeTitle }}</h1>
+            </div>
 
-        <div class="right_half">
-            <h1>Login Account</h1>
-            <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem voluptatum, magni, cumque alias amet quia accusamus nemo perferendis ea ipsa provident. Consequuntur delectus dolorem quae optio, sit harum animi est.
-            </p>
+            <div class="right_half">
+                <h1>{{ login }}</h1>
+                <p>{{ loginDescription }}</p>
 
-            <div class="personal_data">
-                <label for="host">Enter your host name</label>
-                <input type="text" id="host" placeholder="&nbsp;&nbsp;Host name">
+                <div class="personal_data">
+                    <label for="host">{{ hostName }}</label>
+                    <input type="text" id="host" placeholder="&nbsp;&nbsp;Host name">
 
-                <br/>
-                
-                <label for="name">Enter your name</label>
-                <input type="text" id="name" placeholder="&nbsp;&nbsp;Name">
+                    <br/>
+                    
+                    <label for="name">{{ password }}</label>
+                    <input type="password" id="name" placeholder="&nbsp;&nbsp;Password">
 
-                <br/>
+                    <br/>
 
-                <input type="button" id="connect" value="CONNECT" onclick="connectToServer()">
+                    <input type="button" id="connect" value="CONNECT" onclick="connectToServer()">
+                </div>
             </div>
         </div>
     </section>
+
+<script src="main.js"></script>
+
+<script>
+    const mountedApp = app.mount('#app'); 
+</script>
+
 </body>
 </html>

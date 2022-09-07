@@ -1,0 +1,22 @@
+/************************************************************************** 
+    STYLE PER LA DARK O LIGHT MODE IN BASE ALLE IMPOSTAZIONI DI SISTEMA 
+**************************************************************************/
+
+/* DARK MODE */
+@media(prefers-color-scheme: dark) {
+    :root {
+        --mainColor:        var(--mainColor-dark);
+        --secondaryColor:   var(--secondaryColor-dark);
+        --whiteColor:       var(--whiteColor-dark);
+    }
+}
+
+/* LIGHT */
+@media(prefers-color-scheme: light) {
+    :root {
+        --mainColor:        var(--mainColor-light);
+        --secondaryColor:   var(--secondaryColor-light);
+        --blackColor:       var(--blackColor-light);
+        --whiteColor:       var(--whiteColor-light);
+    }
+}
