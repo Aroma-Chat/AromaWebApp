@@ -29,6 +29,7 @@ $('#connect').onclick = () => {
         event.channels.forEach(element => {
             $('#server').innerHTML += new Classes.ChannelButton(element).toHTML();
         });
+        // assign to all channel btn an event listener to change channel 
         $all('*[action="joinTextChannel"]').forEach(btn => { btn.onclick = e => joinTextChannel(btn.value) });
 
         // Send message if enter is pressed
