@@ -70,15 +70,16 @@ class ChannelJoinMessage {
     /**
      * @param {str} name the name of the user that has joined the channel
      */
-    constructor(name) {
+    constructor(name, textChannel) {
         this.name = name;
+        this.textChannel = textChannel;
     }
 
     /**
      * @returns the HTML representation of the join notice
      */
     toHTML() {
-        return `<h4 class="join-message">${this.name} joined ${client.textChannel}</h2>`
+        return `<h4 class="join-message">${this.name} joined ${this.textChannel}</h2>`
     }
 }
 
@@ -90,15 +91,16 @@ class ChannelLeaveMessage {
     /**
      * @param {str} name the name of the user that has left the channel
      */
-    constructor(name) {
+    constructor(name, textChannel) {
         this.name = name;
+        this.textChannel = textChannel;
     }
 
     /**
      * @returns the HTML representation of the leave notice
      */
     toHTML() {
-        return `<h4 class="leave-message">${this.name} left ${client.textChannel}</h2>`
+        return `<h4 class="leave-message">${this.name} left ${this.textChannel}</h2>`
     }
 }
 
@@ -118,6 +120,15 @@ class ChannelButton {
      * @returns the HTML representation of the button
      */
     toHTML() {
-        return `<input type="button" value="${this.channelName}" class="channel-button" id="${this.channelName}-button" onclick="joinTextChannel('${this.channelName}')">`;
+        return `<input type="button" value="${this.channelName}" class="channel-button" id="${this.channelName}-button" action="joinTextChannel">`;
     }
 }
+
+export {
+    Message,
+    LoginMessage,
+    LogoutMessage,
+    ChannelJoinMessage,
+    ChannelLeaveMessage,
+    ChannelButton
+};
