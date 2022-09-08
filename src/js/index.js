@@ -12,16 +12,16 @@ let MSG_HTML;
 /**
  * Connect to the server
  */
-$('#connect').onclick = () => {
-    // Read host address and username from input areas
-    const address = $('#host').value;
-    const name = $('#name').value;
-
+const connect = (address, name) => {
     // Create the client instance
     client = new AromaClient(address, name);
     
     // What happens when the client logs in
     client.addEventListener(AromaEvent.login, (event) => {
+        // set the credentials for the next time 
+        localStorage.setItem('name', name);
+        localStorage.setItem('address', address);
+
         // Update server name
         $('#servername').innerText = event.serverName;
 
@@ -149,7 +149,6 @@ const showMessageboard = () => {
  * @param {str} channel the channel to join
  */
 const joinTextChannel = (channel) => {
-    console.log(channel);
     if (client.textChannel != null) {
         $(`#${client.textChannel}-button`).style = '';
     }
@@ -163,4 +162,14 @@ const joinTextChannel = (channel) => {
     }
 }
 
+// if the address and the name are saved in the local storage it will automaticaly logs in
+if(localStorage.getItem('address'))
+    connect(localStorage.getItem('address'), localStorage.getItem('name'));
+
+$('#connect').onclick = e => connect($('#host').value, $('#name').value);
 $('#send').onclick = sendMessage;
+// clear the credentials
+$('#logout').onclick = e => {
+    localStorage.clear();
+    document.location.reload();
+}
