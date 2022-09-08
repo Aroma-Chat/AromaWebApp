@@ -4,7 +4,7 @@
  * The representation of a message
  * @author Alessandro-Salerno
  */
- class Message {
+class Message {
     /**
      * @param {str} sender the message's sender
      * @param {str} content the message's content

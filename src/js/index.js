@@ -11,8 +11,8 @@ let MSG_HTML;
  */
 const connectToServer = () => {
     // Read host address and username from input areas
-    const address = $('host').value;
-    const name = $('name').value;
+    const address = $('#host').value;
+    const name = $('#name').value;
 
     // Create the client instance
     client = new AromaClient(address, name);
@@ -20,11 +20,11 @@ const connectToServer = () => {
     // What happens when the client logs in
     client.addEventListener(AromaEvent.login, (event) => {
         // Update server name
-        $('servername').innerText = event.serverName;
+        $('#servername').innerText = event.serverName;
 
         // Update list of channels
         event.channels.forEach(element => {
-            $('server').innerHTML += new ChannelButton(element).toHTML();
+            $('#server').innerHTML += new ChannelButton(element).toHTML();
         });
 
         // Send message if enter is pressed
@@ -34,20 +34,20 @@ const connectToServer = () => {
                     sendMessage();
                 }
                 else {
-                    $('newmessage').innerText += '\n';
+                    $('#newmessage').innerText += '\n';
                 }
             }
         });
         
         // Show messageboard and focus input box
         showMessageboard();
-        $('newmessage').focus();
-        MSG_HTML = $('messages').innerHTML;;
+        $('#newmessage').focus();
+        MSG_HTML = $('#messages').innerHTML;;
     });
 
     client.addEventListener(AromaEvent.usermessage, (message) => {
         const msg = new Message(message.sender, message.content);
-        $('messages').innerHTML += msg.toHTML();
+        $('#messages').innerHTML += msg.toHTML();
 
         if (message.sender != client.username) {
             const permission = Notification.requestPermission();
@@ -61,37 +61,37 @@ const connectToServer = () => {
 
     client.addEventListener(AromaEvent.userlogin, (event) => {
         const msg = new LoginMessage(event.name);
-        $('messages').innerHTML += msg.toHTML();
+        $('#messages').innerHTML += msg.toHTML();
     });
 
     client.addEventListener(AromaEvent.userlogout, (event) => {
         const msg = new LogoutMessage(event.name);
-        $('messages').innerHTML += msg.toHTML();
+        $('#messages').innerHTML += msg.toHTML();
     });
 
     client.addEventListener(AromaEvent.join, (event) => {
-        $('messages').innerHTML = MSG_HTML;
+        $('#messages').innerHTML = MSG_HTML;
         event.messages.forEach(message => { client.callEventListeners(message, message.type) });
-        $(`${event.name}-button`).style.backgroundColor = 'cornflowerblue';
+        $(`#${event.name}-button`).style.backgroundColor = 'cornflowerblue';
         const msg = new ChannelJoinMessage('You');
-        $('messages').innerHTML += msg.toHTML();
+        $('#messages').innerHTML += msg.toHTML();
     });
 
     client.addEventListener(AromaEvent.leave, (event) => {
-        $('messages').innerHTML = MSG_HTML;
-        $(`${client.name}-button`).style = '';
+        $('#messages').innerHTML = MSG_HTML;
+        $(`#${client.name}-button`).style = '';
         const msg = new ChannelLeaveMessage('You');
-        $('messages').innerHTML += msg.toHTML();
+        $('#messages').innerHTML += msg.toHTML();
     });
 
     client.addEventListener(AromaEvent.userjoin, (event) => {
         const msg = new ChannelJoinMessage(event.name);
-        $('messages').innerHTML += msg.toHTML();
+        $('#messages').innerHTML += msg.toHTML();
     });
 
     client.addEventListener(AromaEvent.userleave, (event) => {
         const msg = new ChannelLeaveMessage(event.name);
-        $('messages').innerHTML += msg.toHTML();
+        $('#messages').innerHTML += msg.toHTML();
     });
 
     // Show the login form on disconnect
@@ -112,19 +112,19 @@ const connectToServer = () => {
  * Send a message
  */
 const sendMessage = () => {
-    const message = $('newmessage').value;
+    const message = $('#newmessage').value;
     if (message == '') return;
     
     client.sendMessage(message);
-    $('newmessage').value = '';
+    $('#newmessage').value = '';
 }
 
 /**
  * Show the message board
  */
 const showMessageboard = () => {
-    const form = $('loginform');
-    const msgb = $('messageboard');
+    const form = $('#loginform');
+    const msgb = $('#messageboard');
     form.style.display = 'none';
     msgb.style.display = 'flex';
 }
@@ -134,7 +134,7 @@ const showMessageboard = () => {
  */
 const joinTextChannel = (channel) => {
     if (client.textChannel != null) {
-        $(`${client.textChannel}-button`).style = '';
+        $(`#${client.textChannel}-button`).style = '';
     }
     
     if (client.textChannel != channel) {
@@ -145,3 +145,14 @@ const joinTextChannel = (channel) => {
         client.leaveTextChannel();
     }
 }
+
+// inner HTML observer to scroll down
+const chatBox = $('#messages');
+chatBox.scrollTop = chatBox.scrollHeight - chatBox.clientHeight;
+observer = new MutationObserver(() => {
+    chatBox.scrollTop = chatBox.scrollHeight - chatBox.clientHeight;
+});
+
+// call 'observe' on that MutationObserver instance, 
+// passing it the element to observe, and the options object
+observer.observe(chatBox, {characterData: false, childList: true, attributes: false}); 
