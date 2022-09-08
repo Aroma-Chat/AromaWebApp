@@ -112,7 +112,7 @@ const connectToServer = () => {
  * Send a message
  */
 const sendMessage = () => {
-    const message = $('#newmessage').value;
+    const message = $('#newmessage').value.trim();
     if (message == '') return;
     
     client.sendMessage(message);
