@@ -42,7 +42,7 @@ const connectToServer = () => {
         // Show messageboard and focus input box
         showMessageboard();
         $('#newmessage').focus();
-        MSG_HTML = $('#messages').innerHTML;;
+        MSG_HTML = $('#messages').innerHTML;
     });
 
     client.addEventListener(AromaEvent.usermessage, (message) => {
@@ -113,7 +113,7 @@ const connectToServer = () => {
  */
 const sendMessage = () => {
     const message = $('#newmessage').value.trim();
-    if (message == '') return;
+    if (message.trim() === '') return;
     
     client.sendMessage(message);
     $('#newmessage').value = '';
