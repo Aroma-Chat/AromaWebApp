@@ -22,15 +22,15 @@ class ChatBox {
     constructor(chatboxId) {
         // pick the chatbox element
         this.chatbox = $(`#${chatboxId}`);
-    }
 
-    static {
+        this.savedMessages = '';
+
         // inner HTML observer to scroll down
         const scrollDown = () => { this.chatbox.scrollTop = this.chatbox.scrollHeight - this.chatbox.clientHeight };
         const observer = new MutationObserver(scrollDown);
         // call 'observe' on that MutationObserver instance, 
         // passing it the element to observe, and the options object
-        observer.observe(chatBox, {characterData: false, childList: true, attributes: false});
+        observer.observe(this.chatbox, {characterData: false, childList: true, attributes: false});
     }
 
     // function that clones the template and wraps it into a div and than returns it
@@ -69,6 +69,14 @@ class ChatBox {
         template.querySelector('*[field="msg"]').innerHTML = `${name} ${mode ? 'joined' : 'left'} ${chennel}`;
         
         this.#append(template);
+    }
+
+    saveChat() {
+        this.savedMessages = this.chatbox.innerHTML;
+    }
+
+    restoreChat() {
+        this.chatbox.innerHTML = this.savedMessages;
     }
 }
 
