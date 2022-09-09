@@ -17,7 +17,8 @@
 /* The server sidebar */
 #server {
     display: flex;
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
     flex-direction: column;
     width: 15%;
 }
@@ -25,11 +26,14 @@
 /* The message box */
 #newmessage {
     width: 100%;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    padding: 0.5rem;
+    box-sizing: border-box;
     overflow-y: visible;
     resize: vertical;
     resize: none;
+    font-size: 1.1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    outline: none;
 }
 
 /* The whole input area */
@@ -42,10 +46,15 @@
 #messages {
     display: flex;
     flex-direction: column;
+    gap: 0.8rem;
     height: 100%;
     width: auto; 
     padding: 8px;
-    overflow-y: scroll;
+    overflow-y: auto;
+}
+
+#messages * {
+    background-color: rgb(60, 60, 60);
 }
 
 /* The login form */

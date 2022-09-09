@@ -1,9 +1,10 @@
 import { $ } from './symbols.js'
 
+// all the empty template for the varius type of message
 const messages = {
-    message: `<div style="display: flex; flex-direction: column">
-                <h3 style="color: cornflowerblue;" field="sender"></h3>
-                <p field="msg"></p>
+    message: `<div style="display: flex; flex-direction: column; gap:0.2rem">
+                <h3 style="padding-left: 0.85rem;color: cornflowerblue; margin:0" field="sender"></h3>
+                <p style="padding-left: 1rem; margin:0" field="msg"></p>
               </div>`,
     loginMessage: `<h4 class="login-message" field="msg"></h4>`,
     logoutMessage: `<h4 class="logout-message" field="msg"></h4>`,
@@ -11,24 +12,48 @@ const messages = {
     channelLeaveMessage:`<h4 class="leave-message" field="msg"></h4>`
 }
 
+/**
+ * class that rappresent the chatbox and the interaction with it
+ * 
+ * @author Marco Schiavello
+ */
 class ChatBox {
 
     constructor(chatboxId) {
+        // pick the chatbox element
         this.chatbox = $(`#${chatboxId}`);
     }
 
+    static {
+        // inner HTML observer to scroll down
+        const scrollDown = () => { this.chatbox.scrollTop = this.chatbox.scrollHeight - this.chatbox.clientHeight };
+        const observer = new MutationObserver(scrollDown);
+        // call 'observe' on that MutationObserver instance, 
+        // passing it the element to observe, and the options object
+        observer.observe(chatBox, {characterData: false, childList: true, attributes: false});
+    }
+
+    // function that clones the template and wraps it into a div and than returns it
     #createTemplate(messageType) {
         const newElement = document.createElement('div');
         newElement.innerHTML = messages[messageType];
         return newElement;
     }
     
+    // appends the element wrapped into the div in the chatbox
+    #append(newElement) {
+        this.chatbox.appendChild(newElement.children[0]);
+    }
+
     printMsg(sender, content) {
+        // create the tamplate
         const template = this.#createTemplate('message');
+        // populate the template
         template.querySelector('*[field="sender"]').innerHTML = sender;
         template.querySelector('*[field="msg"]').innerHTML = content;
 
-        this.chatbox.appendChild(template);
+        // appends the element
+        this.#append(template);
     }
 
     printLogMsg(name, mode_ = true) {
@@ -36,14 +61,14 @@ class ChatBox {
         const template = this.#createTemplate(`log${mode}Message`);
         template.querySelector('*[field="msg"]').innerHTML = `${name} logged ${mode}`;
         
-        this.chatbox.appendChild(template);
+        this.#append(template);
     }
 
-    printChannelEntranceMsg(name, chennel, mode_ = true) {
-        const template = this.#createTemplate(`channel${ mode_ ? 'Join' : 'Leave' }Message`);
-        template.querySelector('*[field="msg"]').innerHTML = `${name} ${mode_ ? 'joined' : 'left'} ${chennel}`;
+    printChannelEntranceMsg(name, chennel, mode = true) {
+        const template = this.#createTemplate(`channel${ mode ? 'Join' : 'Leave' }Message`);
+        template.querySelector('*[field="msg"]').innerHTML = `${name} ${mode ? 'joined' : 'left'} ${chennel}`;
         
-        this.chatbox.appendChild(template);
+        this.#append(template);
     }
 }
 

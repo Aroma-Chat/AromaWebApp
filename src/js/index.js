@@ -1,6 +1,6 @@
 /* WARNING: This is all temporary code. Code quality was not considered */
 import { $, $all } from './symbols.js';
-import * as Classes from './classes.js';
+import * as Components from './components.js';
 import { ChatBox } from './chatbox.js';
 import { AromaClient, AromaEvent, AromaError } from 'https://marcoschiavello.github.io/Aromalib/js/vanilla/client/aromalib.js';
 // The client that handles the connection
@@ -28,9 +28,7 @@ const connect = (address, name) => {
         $('#servername').innerText = event.serverName;
 
         // Update list of channels
-        event.channels.forEach(element => {
-            $('#server').innerHTML += new Classes.ChannelButton(element).toHTML();
-        });
+        event.channels.forEach(element => $('#server').append(Components.ChannelButton(element)));
         // assign to all channel btn an event listener to change channel 
         $all('*[action="joinTextChannel"]').forEach(btn => { btn.onclick = e => joinTextChannel(btn.value) });
 
@@ -67,6 +65,8 @@ const connect = (address, name) => {
 
     client.addEventListener(AromaEvent.userlogin, (event) => chatbox.printLogMsg(event.name));
     client.addEventListener(AromaEvent.userlogout, (event) => chatbox.printLogMsg(event.name, false));
+    client.addEventListener(AromaEvent.userjoin, (event) => chatbox.printChannelEntranceMsg(event.name, client.textChannel));
+    client.addEventListener(AromaEvent.userleave, (event) => chatbox.printChannelEntranceMsg(event.name, client.textChannel, false));
 
     client.addEventListener(AromaEvent.join, (event) => {
         $('#messages').innerHTML = MSG_HTML;
@@ -83,9 +83,6 @@ const connect = (address, name) => {
         chatbox.printChannelEntranceMsg('You', client.textChannel, false);
     });
 
-    client.addEventListener(AromaEvent.userjoin, (event) => chatbox.printChannelEntranceMsg(event.name, client.textChannel));
-    client.addEventListener(AromaEvent.userleave, (event) => chatbox.printChannelEntranceMsg(event.name, client.textChannel, false));
-
     // Show the login form on disconnect
     client.addErrorHandler(AromaError.disconnect, (event) => {
         alert(`Connection lost: the connection has been interrupted.\nReason: ${event.reason == '' ? 'unknown' : event.reason}`);
@@ -98,14 +95,6 @@ const connect = (address, name) => {
 
     // Establish a connection to the server
     client.connect();
-
-    // inner HTML observer to scroll down
-    const chatBox = $('#messages');
-    const scrollDown = () => { chatBox.scrollTop = chatBox.scrollHeight - chatBox.clientHeight };
-    const observer = new MutationObserver(scrollDown);
-    // call 'observe' on that MutationObserver instance, 
-    // passing it the element to observe, and the options object
-    observer.observe(chatBox, {characterData: false, childList: true, attributes: false});
 }
 
 /**
