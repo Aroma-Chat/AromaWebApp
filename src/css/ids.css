@@ -29,6 +29,7 @@
     padding-bottom: 1%;
     overflow-y: visible;
     resize: vertical;
+    resize: none;
 }
 
 /* The whole input area */

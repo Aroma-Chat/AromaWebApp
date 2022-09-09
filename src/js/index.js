@@ -1,13 +1,15 @@
 /* WARNING: This is all temporary code. Code quality was not considered */
 import { $, $all } from './symbols.js';
 import * as Classes from './classes.js';
-import {AromaClient, AromaEvent, AromaError} from 'https://marcoschiavello.github.io/Aromalib/js/vanilla/client/aromalib.js';
-
+import { ChatBox } from './chatbox.js';
+import { AromaClient, AromaEvent, AromaError } from 'https://marcoschiavello.github.io/Aromalib/js/vanilla/client/aromalib.js';
 // The client that handles the connection
 let client;
 
 // The original content of the 'messages' div
 let MSG_HTML;
+
+const chatbox = new ChatBox('messages');
 
 /**
  * Connect to the server
@@ -51,8 +53,7 @@ const connect = (address, name) => {
     });
 
     client.addEventListener(AromaEvent.usermessage, (message) => {
-        const msg = new Classes.Message(message.sender, message.content);
-        $('#messages').innerHTML += msg.toHTML();
+        chatbox.printMsg(message.sender, message.content);
 
         if (message.sender != client.username) {
             const permission = Notification.requestPermission();
@@ -64,40 +65,26 @@ const connect = (address, name) => {
         }
     });
 
-    client.addEventListener(AromaEvent.userlogin, (event) => {
-        const msg = new Classes.LoginMessage(event.name);
-        $('#messages').innerHTML += msg.toHTML();
-    });
-
-    client.addEventListener(AromaEvent.userlogout, (event) => {
-        const msg = new Classes.LogoutMessage(event.name);
-        $('#messages').innerHTML += msg.toHTML();
-    });
+    client.addEventListener(AromaEvent.userlogin, (event) => chatbox.printLogMsg(event.name));
+    client.addEventListener(AromaEvent.userlogout, (event) => chatbox.printLogMsg(event.name, false));
 
     client.addEventListener(AromaEvent.join, (event) => {
         $('#messages').innerHTML = MSG_HTML;
         event.messages.forEach(message => { client.callEventListeners(message, message.type) });
         $(`#${event.name}-button`).style.backgroundColor = 'cornflowerblue';
-        const msg = new Classes.ChannelJoinMessage('You', client.textChannel);
-        $('#messages').innerHTML += msg.toHTML();
+
+        chatbox.printChannelEntranceMsg('You', client.textChannel);
     });
 
     client.addEventListener(AromaEvent.leave, (event) => {
         $('#messages').innerHTML = MSG_HTML;
         $(`#${client.name}-button`).style = '';
-        const msg = new Classes.ChannelLeaveMessage('You', client.textChannel);
-        $('#messages').innerHTML += msg.toHTML();
+
+        chatbox.printChannelEntranceMsg('You', client.textChannel, false);
     });
 
-    client.addEventListener(AromaEvent.userjoin, (event) => {
-        const msg = new Classes.ChannelJoinMessage(event.name, client.textChannel);
-        $('#messages').innerHTML += msg.toHTML();
-    });
-
-    client.addEventListener(AromaEvent.userleave, (event) => {
-        const msg = new Classes.ChannelLeaveMessage(event.name, client.textChannel);
-        $('#messages').innerHTML += msg.toHTML();
-    });
+    client.addEventListener(AromaEvent.userjoin, (event) => chatbox.printChannelEntranceMsg(event.name, client.textChannel));
+    client.addEventListener(AromaEvent.userleave, (event) => chatbox.printChannelEntranceMsg(event.name, client.textChannel, false));
 
     // Show the login form on disconnect
     client.addErrorHandler(AromaError.disconnect, (event) => {
@@ -114,11 +101,8 @@ const connect = (address, name) => {
 
     // inner HTML observer to scroll down
     const chatBox = $('#messages');
-    chatBox.scrollTop = chatBox.scrollHeight - chatBox.clientHeight;
-    const observer = new MutationObserver(() => {
-        chatBox.scrollTop = chatBox.scrollHeight - chatBox.clientHeight;
-    });
-
+    const scrollDown = () => { chatBox.scrollTop = chatBox.scrollHeight - chatBox.clientHeight };
+    const observer = new MutationObserver(scrollDown);
     // call 'observe' on that MutationObserver instance, 
     // passing it the element to observe, and the options object
     observer.observe(chatBox, {characterData: false, childList: true, attributes: false});
