@@ -5,9 +5,6 @@ import { ChatBox } from './chatbox.js';
 import * as Utils from './utils.js';  
 import { AromaClient, AromaEvent, AromaError } from 'https://marcoschiavello.github.io/Aromalib/js/vanilla/client/aromalib.js';
 
-// The original content of the 'messages' div
-let MSG_HTML;
-
 const chatbox = new ChatBox('messages');
 
 /**
