@@ -1,8 +1,8 @@
 /* WARNING: This is all temporary code. Code quality was not considered */
 import { $, $all } from './symbols.js';
 import * as Components from './components.js';
-import { ChatBox } from './chatbox.js';
 import * as Utils from './utils.js';  
+import { ChatBox } from './chatbox.js';
 import { AromaClient, AromaEvent, AromaError } from 'https://marcoschiavello.github.io/Aromalib/js/vanilla/client/aromalib.js';
 
 const chatbox = new ChatBox('messages');
