@@ -50,12 +50,12 @@ const connect = (address, name) => {
         }
     });
 
-    client.addEventListener(AromaEvent.userlogin, (event) => chatbox.printLogMsg(event.name));
-    client.addEventListener(AromaEvent.userlogout, (event) => chatbox.printLogMsg(event.name, false));
-    client.addEventListener(AromaEvent.userjoin, (event) => chatbox.printChannelEntranceMsg(event.name, client.textChannel));
-    client.addEventListener(AromaEvent.userleave, (event) => chatbox.printChannelEntranceMsg(event.name, client.textChannel, false));
+    client.addEventListener(AromaEvent.userlogin, event => chatbox.printLogMsg(event.name));
+    client.addEventListener(AromaEvent.userlogout, event => chatbox.printLogMsg(event.name, false));
+    client.addEventListener(AromaEvent.userjoin, event => chatbox.printChannelEntranceMsg(event.name, client.textChannel));
+    client.addEventListener(AromaEvent.userleave, event => chatbox.printChannelEntranceMsg(event.name, client.textChannel, false));
 
-    client.addEventListener(AromaEvent.join, (event) => {
+    client.addEventListener(AromaEvent.join, event => {
         chatbox.restoreChat();
         event.messages.forEach(message => { client.callEventListeners(message, message.type) });
         chatbox.printChannelEntranceMsg('You', client.textChannel);

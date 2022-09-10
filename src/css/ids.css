@@ -26,7 +26,7 @@
 /* The message box */
 #newmessage {
     width: 100%;
-    padding: 0.5rem;
+    padding: 1rem;
     box-sizing: border-box;
     overflow-y: visible;
     resize: vertical;
@@ -50,6 +50,7 @@
     height: 100%;
     width: auto; 
     padding: 8px;
+    padding-bottom: 1rem;
     overflow-y: auto;
 }
 

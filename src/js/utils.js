@@ -39,7 +39,7 @@ const flushSpaceOnKeyRelise = e => {
  */
 function joinTextChannel (client, channel) {
     if (client.textChannel != null) {
-        $(`#${client.textChannel}-button`).style = '';
+        $(`*[id="${client.textChannel}-button"]`).style = '';
     }
     
     if (client.textChannel != channel) {
@@ -74,7 +74,7 @@ function radioFunctionality(btnList_) {
 }
 
 function HTMLspaceConverter(text) {
-    return text.replace(/\n/, '<br>');
+    return text.replace(/\n/g, '<br>');
 }
 
 export {
