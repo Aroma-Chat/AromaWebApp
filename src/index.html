@@ -13,15 +13,8 @@
     <link rel="stylesheet" href="css/mixed.css">
     <link rel="stylesheet" href="css/responsive.css">
     
-    <!-- External Libraries -->
-    <script src="https://aroma-chat.github.io/Aromalib/js/vanilla/client/aromalib.js?"></script>
-    
-    <!-- Internal support code -->
-    <script src="js/symbols.js"></script>
-    <script src="js/classes.js"></script>
-    
     <!-- Scripts -->
-    <script src="js/index.js"></script>
+    <script src="js/index.js" type="module" defer></script>
 </head>
 <body>
     <div id="loginform">
@@ -31,10 +24,11 @@
         <input type="text" id="host" class="loginfield">
         Username
         <input type="text" id="name" class="loginfield">
-        <input type="button" value="Connect" id="connect" onclick="connectToServer()">
+        <input type="button" value="Connect" id="connect">
     </div>
 
     <div id="messageboard" class="maxsize">
+        <button id="logout" style="position: absolute; top: 4rem; right: 5rem; z-index: 10000;">logout</button>
         <div id="server">
             <h1 id="servername">Server name</h1>
         </div>
@@ -43,7 +37,7 @@
             <div id="messages" class="maxsize"><div id="dummydiv"></div></div>
             <div class="horizontal maxsize" id="messageinput">
                 <textarea id="newmessage" rows="1"></textarea>
-                <input type="button" value="Send" id="send" onclick="sendMessage()">
+                <input type="button" value="Send" id="send">
             </div>
         </div>
     </div>
